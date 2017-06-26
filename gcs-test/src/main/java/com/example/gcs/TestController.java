@@ -22,7 +22,7 @@ public class TestController {
   @ResponseBody
   public List<ListItem> geList() {
     List<ListItem> list = new ArrayList();
-    File dir = new File("/etc/app_folder");
+    File dir = new File("/gcs/app_folder");
     if(dir.exists() && dir.isDirectory()) {
       File[] files = dir.listFiles();
       for (File file : files) {

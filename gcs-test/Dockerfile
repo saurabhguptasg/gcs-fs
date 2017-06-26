@@ -2,7 +2,8 @@ FROM frolvlad/alpine-oraclejdk8:slim
 
 # COPY gcsfuse.repo /etc/yum.repos.d/
 # RUN dnf -y install gcsfuse
-# RUN mkdir -p /etc/app_folder
+
+RUN mkdir -p /gcs/app_folder
 
 ENV GCSFUSE_REPO=gcsfuse-`lsb_release -c -s`
 echo "deb http://packages.cloud.google.com/apt $GCSFUSE_REPO main" | sudo tee /etc/apt/sources.list.d/gcsfuse.list

@@ -6,7 +6,7 @@ spec:
   replicas: 2 # tells deployment to run 2 pods matching the template
   template: # create pods using pod definition in this template
     metadata:
-    labels:
+      labels:
         app: gcs-fs-service
     spec:
     containers:

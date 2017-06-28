@@ -1,12 +1,10 @@
-# FROM frolvlad/alpine-oraclejdk8:slim
-
 FROM openjdk:8
 
 # COPY gcsfuse.repo /etc/yum.repos.d/
 # RUN dnf -y install gcsfuse
 
 ENV CLOUD_SDK_VERSION 160.0.0
-ENV RELEASE_VERSION el7-x86_64
+ENV RELEASE_VERSION jessie
 RUN apt-get update && apt-get install -qqy curl gcc python-dev python-setuptools apt-transport-https lsb-release openssh-client && \
     apt-get -y install curl ca-certificates && \
     easy_install -U pip && \
@@ -17,7 +15,7 @@ RUN apt-get update && apt-get install -qqy curl gcc python-dev python-setuptools
     echo "deb http://packages.cloud.google.com/apt $GCSFUSE_REPO main" > /etc/apt/sources.list.d/gcsfuse.list && \
     curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - && \
     apt-get update && \
-    apt-get install -y google-cloud-sdk-$CLOUD_SDK_VERSION-0 \
+    apt-get install -y google-cloud-sdk \
         google-cloud-sdk-app-engine-python \
         google-cloud-sdk-app-engine-java \
         google-cloud-sdk-app-engine-go \

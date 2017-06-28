@@ -8,6 +8,7 @@ spec:
     metadata:
       labels:
         app: gcs-fs-service
+        tier: frontend
     spec:
       containers:
       - name: gcs-fs
@@ -26,3 +27,4 @@ spec:
         image: gcr.io/sgsg-dm/gcs-fs
         ports:
         - containerPort: 8080
+          port: 80

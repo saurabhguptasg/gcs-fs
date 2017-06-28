@@ -9,6 +9,7 @@ spec:
   selector:
     app: gcs-fs-service
     tier: frontend
+  type: LoadBalancer
   ports:
     - protocol: TCP
       port: 80

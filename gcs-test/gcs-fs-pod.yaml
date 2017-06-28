@@ -1,7 +1,26 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: gcs-fs-deployment
+  name: gcs-fs-service
+  labels:
+    app: gcs-fs-service
+    tier: frontend
+spec:
+  selector:
+    app: gcs-fs-service
+    tier: frontend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: gcs-fs-service
+  labels:
+    app: gcs-fs-service
+    tier: frontend
 spec:
   replicas: 2 # tells deployment to run 2 pods matching the template
   template: # create pods using pod definition in this template
@@ -26,8 +45,5 @@ spec:
               command: ["fusermount", "-u", "/gcs/app_folder"]
         image: gcr.io/sgsg-dm/gcs-fs
         ports:
-        - name: http
-          protocol: TCP
-          port: 80
-          targetPort: 8080
+        - containerPort: 8080
 

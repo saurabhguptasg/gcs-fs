@@ -1,5 +1,5 @@
-apiVersion: apps/v1beta1
-kind: Deployment
+apiVersion: v1
+kind: Service
 metadata:
   name: gcs-fs-deployment
 spec:
@@ -26,5 +26,8 @@ spec:
               command: ["fusermount", "-u", "/gcs/app_folder"]
         image: gcr.io/sgsg-dm/gcs-fs
         ports:
-        - containerPort: 8080
-        - port: 80
+        - name: http
+          protocol: TCP
+          port: 80
+          targetPort: 8080
+

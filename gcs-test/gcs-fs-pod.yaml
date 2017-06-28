@@ -9,13 +9,13 @@ spec:
       labels:
         app: gcs-fs-service
     spec:
-    containers:
-    - name: gcs-fs
-      securityContext:
-        privileged: true
-        capabilities:
-          add:
-            - SYS_ADMIN
+      containers:
+      - name: gcs-fs
+        securityContext:
+          privileged: true
+          capabilities:
+            add:
+              - SYS_ADMIN
       image: gcr.io/sgsg-dm/gcs-fs
       ports:
       - containerPort: 8080

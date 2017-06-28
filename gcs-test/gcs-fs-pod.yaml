@@ -16,7 +16,7 @@ spec:
         capabilities:
           add:
             - SYS_ADMIN
-      image: sgsg-dm/gcs-fs
+      image: gcr.io/sgsg-dm/gcs-fs
       ports:
       - containerPort: 8080
       lifecycle:

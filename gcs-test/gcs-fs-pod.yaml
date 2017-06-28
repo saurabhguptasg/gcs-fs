@@ -27,4 +27,4 @@ spec:
         image: gcr.io/sgsg-dm/gcs-fs
         ports:
         - containerPort: 8080
-          port: 80
+        - port: 80

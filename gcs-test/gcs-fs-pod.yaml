@@ -16,13 +16,13 @@ spec:
           capabilities:
             add:
               - SYS_ADMIN
-      image: gcr.io/sgsg-dm/gcs-fs
-      ports:
-      - containerPort: 8080
-      lifecycle:
-        postStart:
-          exec:
-            command: ["gcsfuse", "-o", "nonempty", "sgsg-dm-fs", "/gcs/app_folder"]
-        preStop:
-          exec:
-            command: ["fusermount", "-u", "/gcs/app_folder"]
+        lifecycle:
+          postStart:
+            exec:
+              command: ["gcsfuse", "-o", "nonempty", "sgsg-dm-fs", "/gcs/app_folder"]
+          preStop:
+            exec:
+              command: ["fusermount", "-u", "/gcs/app_folder"]
+        image: gcr.io/sgsg-dm/gcs-fs
+        ports:
+        - containerPort: 8080

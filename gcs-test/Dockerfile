@@ -1,8 +1,5 @@
 FROM openjdk:8
 
-# COPY gcsfuse.repo /etc/yum.repos.d/
-# RUN dnf -y install gcsfuse
-
 ENV CLOUD_SDK_VERSION 160.0.0
 ENV RELEASE_VERSION jessie
 RUN apt-get update && apt-get install -qqy curl gcc python-dev python-setuptools apt-transport-https lsb-release openssh-client && \
@@ -38,9 +35,8 @@ RUN mkdir -p /gcs/app_folder
 
 VOLUME /tmp
 ADD target/gcs-test-0.0.1-SNAPSHOT.jar app.jar
-# RUN sh -c 'touch /app.jar'
+
 EXPOSE 8080
 ENV JAVA_OPTS=""
 ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
 
-#ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /app.jar" ]

@@ -40,7 +40,7 @@ spec:
         lifecycle:
           postStart:
             exec:
-              command: ["gcsfuse", "-o", "nonempty", "sgsg-dm-fs", "/gcs/app_folder"]
+              command: ["gcsfuse", "-o", "nonempty", "my-unique-bucket-name", "/gcs/app_folder"]
           preStop:
             exec:
               command: ["fusermount", "-u", "/gcs/app_folder"]

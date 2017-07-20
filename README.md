@@ -1,5 +1,15 @@
 # gcs-fs
 
+This repository shows how to mount a GCS bucket as a file system endpoint
+in a Docker container running in Kubernetes on Google Container Engine (GKE).
+
+It contains a simple Spring Boot sample app that reads the list of files in the specified
+bucket and provides a directory listing at a certain REST endpoint.
+
+This can be useful for running various legacy systems (such as CMS, WordPress, etc.) in a 
+containerized manner in Kubernetes / GKE.
+
+
 ### Create a bucket
 
 1. Launch Google Cloud console and navigate over to the Cloud Storage area.

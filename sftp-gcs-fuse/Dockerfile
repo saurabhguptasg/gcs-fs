@@ -10,12 +10,12 @@ RUN export GCSFUSE_REPO=gcsfuse-`lsb_release -c -s` && \
     echo "deb https://packages.cloud.google.com/apt $GCSFUSE_REPO main" | tee /etc/apt/sources.list.d/gcsfuse.list && \
     curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
 
-RUN apt-get update
+RUN apt-get update && \
+    apt-get -y install openssh-server && \
+    rm -rf /var/lib/apt/lists/* && \
+    mkdir -p /var/run/sshd && \
+    rm -f /etc/ssh/ssh_host_*key*
+
 RUN apt-get install -y ssh
 RUN apt-get install -y gcsfuse
 
-RUN mkdir -p /gcs
-ARG BUCKET_NAME
-ENV BUCKET_NAME="$BUCKET_NAME"
-EXPOSE 22
-ENTRYPOINT ["gcsfuse", "$BUCKET_NAME", "/gcs"]

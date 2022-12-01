@@ -1,21 +1,24 @@
 FROM ubuntu:22.04
 
-RUN apt-get update
-RUN apt-get install -y curl gcc apt-transport-https apt-utils lsb-release openssh-client
-RUN apt-get install -y ca-certificates wget
-RUN apt-get install -y gnupg
+RUN apt-get update && \
+    apt-get install -y gnupg lsb-release wget
 
-RUN export GCSFUSE_REPO=gcsfuse-`lsb_release -c -s` && \
-    echo ">> >> gcs fuse is: $GCSFUSE_REPO" && \
-    echo "deb https://packages.cloud.google.com/apt $GCSFUSE_REPO main" | tee /etc/apt/sources.list.d/gcsfuse.list && \
-    curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+RUN GCSFUSE_REPO=$(lsb_release -c -s) && \
+    echo "deb http://packages.cloud.google.com/apt gcsfuse-$GCSFUSE_REPO main" | tee /etc/apt/sources.list.d/gcsfuse.list && \
+    wget -O - https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
 
 RUN apt-get update && \
-    apt-get -y install openssh-server && \
+    apt-get install -y gcsfuse openssh-server && \
     rm -rf /var/lib/apt/lists/* && \
     mkdir -p /var/run/sshd && \
     rm -f /etc/ssh/ssh_host_*key*
 
-RUN apt-get install -y ssh
-RUN apt-get install -y gcsfuse
+COPY assets/sshd_config /etc/ssh/sshd_config
+COPY assets/entry /
+RUN chmod 755 /etc/ssh/sshd_config
+RUN chmod 755 /entry
 
+EXPOSE 22
+
+#CMD ["/bin/bash"]
+ENTRYPOINT ["/entry"]

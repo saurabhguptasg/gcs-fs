@@ -1,6 +1,18 @@
-FROM ubuntu:22.04
+FROM ubuntu:20.04
+
+ENV SFTPGROUP gcs-sftp-group
+ENV USERNAME foo
+ENV PASSWORD pass
+ENV BUCKET_NAME my_gcs_bucket
+ENV PUBLICKEY my_publickey
+
+WORKDIR /app
+
+COPY assets/sshd_config /etc/ssh/sshd_config
+COPY assets/entry /app/entry
 
 RUN apt-get update && \
+    DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get -y install tzdata && \
     apt-get install -y gnupg lsb-release wget
 
 RUN GCSFUSE_REPO=$(lsb_release -c -s) && \
@@ -10,15 +22,8 @@ RUN GCSFUSE_REPO=$(lsb_release -c -s) && \
 RUN apt-get update && \
     apt-get install -y gcsfuse openssh-server && \
     rm -rf /var/lib/apt/lists/* && \
-    mkdir -p /var/run/sshd && \
-    rm -f /etc/ssh/ssh_host_*key*
-
-COPY assets/sshd_config /etc/ssh/sshd_config
-COPY assets/entry /
-RUN chmod 755 /etc/ssh/sshd_config
-RUN chmod 755 /entry
+    mkdir -p /var/run/sshd
 
 EXPOSE 22
 
-#CMD ["/bin/bash"]
-ENTRYPOINT ["/entry"]
+ENTRYPOINT ["/app/entry"]

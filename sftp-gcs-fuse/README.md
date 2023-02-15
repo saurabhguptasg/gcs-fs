@@ -10,7 +10,7 @@ SFTP Server for Google Cloud Storage based on GCSFuse
     cd sftp-gcs-fuse
     ```
 
-2. Copy the [config.sample](./sftp-gcs-fuse/config.sample) to a file called config
+2. Copy the [config.sample](./config.sample) to a file called config
 
     ```bash
     cp config.sample config
@@ -20,7 +20,7 @@ SFTP Server for Google Cloud Storage based on GCSFuse
 
 4. Deploy SFTP Server. 
     
-    NOTE: [gce-deploy.sh](./sftp-gcs-fuse/gce-deploy.sh) creates a firewall rule that opens port 2222 within your GCP project. Edit that firewall rule based on your preferred security policies.
+    NOTE: [gce-deploy.sh](./gce-deploy.sh) creates a firewall rule that opens port 2222 within your GCP project. Edit that firewall rule based on your preferred security policies.
 
     ```bash
     ./gce-deploy.sh
